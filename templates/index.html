@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Simple Blog</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <h1>Welcome to My Simple Blog</h1>
+    {% for group_name, posts in groups.items() %}
+        <h2>{{ group_name }}</h2>
+        <ul>
+            {% for post in posts %}
+                <li><a href="{{ url_for('post', group=group_name, filename=post.filename) }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
