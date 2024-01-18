@@ -18,7 +18,7 @@ install requirements.txt
 
 ## Usage
 Clone the repository:
-`git clone [your-repository-url]`
+`git clone https://github.com/dithink/Simple-Blog-Markdown`
 
 Navigate to the project directory:
 `cd blog_platform`
