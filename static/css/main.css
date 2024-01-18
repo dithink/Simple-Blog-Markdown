@@ -1,12 +1,104 @@
+/* Общие стили */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     margin: 20px;
+    color: #333;
+    background-color: #f4f4f4;
+    line-height: 1.6;
 }
 
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Стили заголовка */
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Стили для ссылок */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для постов */
+.post-item {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для контента поста */
 .content {
     margin-top: 20px;
 }
 
+/* Стилизация чекбоксов */
 input[type='checkbox'] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+input[type='checkbox']:before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    vertical-align: middle;
     margin-right: 5px;
+}
+
+input[type='checkbox']:checked:before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Стили для списка постов на главной странице */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Стилизация кнопок и форм */
+button, input[type='submit'] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover, input[type='submit']:hover {
+    background-color: #0056b3;
+}
+
+input[type='text'], input[type='email'], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 200px;
 }
