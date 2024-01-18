@@ -3,20 +3,17 @@ import os
 import markdown
 
 def preprocess_markdown(markdown_content):
-    # Замените '[x]' и '[ ]' на соответствующие HTML элементы для списка задач
+    # Replace '[x]' and '[ ]' with corresponding HTML elements for the task list
     markdown_content = markdown_content.replace('[x]', '<input type="checkbox" checked disabled>')
     markdown_content = markdown_content.replace('[ ]', '<input type="checkbox" disabled>')
     return markdown_content
 
 def markdown_to_html(markdown_content):
-    # Предобработайте Markdown контент
+    # Preprocess Markdown content
     markdown_content = preprocess_markdown(markdown_content)
-    # Преобразуйте Markdown в HTML
+    # Convert Markdown to HTML
     html_content = markdown.markdown(markdown_content, extensions=['extra', 'nl2br', 'sane_lists'])
     return html_content
-
-
-
 
 app = Flask(__name__)
 
@@ -44,8 +41,6 @@ def post(group, filename):
         content = file.read()
         html_content = markdown_to_html(content)
     return render_template('post.html', content=html_content)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
