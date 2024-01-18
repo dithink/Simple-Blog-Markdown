@@ -3,16 +3,31 @@
 <head>
     <title>My Simple Blog</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <script>
+        // Функция для переключения меню (открыть/закрыть)
+        function toggleMenu() {
+            var nav = document.querySelector('nav');
+            nav.classList.toggle('open');
+        }
+    </script>
 </head>
 <body>
-    <h1>Welcome to My Simple Blog</h1>
-    {% for group_name, posts in groups.items() %}
-        <h2>{{ group_name }}</h2>
-        <ul>
-            {% for post in posts %}
-                <li><a href="{{ url_for('post', group=group_name, filename=post.filename) }}">{{ post.title }}</a></li>
+    <div class="container">
+        <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+        <nav>
+            {% for group_name, posts in groups.items() %}
+                <h2>{{ group_name }}</h2>
+                <ul>
+                    {% for post in posts %}
+                        <li><a href="{{ url_for('post', group=group_name, filename=post.filename) }}">{{ post.title }}</a></li>
+                    {% endfor %}
+                </ul>
             {% endfor %}
-        </ul>
-    {% endfor %}
+        </nav>
+        <div class="content">
+            <h1>Welcome to My Simple Blog</h1>
+            <!-- Сюда можно добавить дополнительный контент, если он у вас есть -->
+        </div>
+    </div>
 </body>
 </html>

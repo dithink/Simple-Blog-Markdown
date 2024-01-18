@@ -102,3 +102,82 @@ input[type='text'], input[type='email'], textarea {
 textarea {
     height: 200px;
 }
+
+/* Базовые стили */
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    margin: 0;
+    color: #333;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* Контейнер для меню и контента */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Стили для меню */
+nav {
+    background-color: #f8f9fa;
+    padding: 10px;
+    width: 250px;
+    box-sizing: border-box; /* включаем padding в ширину */
+}
+
+/* Стили для контента поста */
+.content {
+    background-color: #fff;
+    padding: 20px;
+    flex-grow: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Медиазапросы для адаптации под мобильные устройства */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+        order: 2; /* перемещаем меню под контент */
+    }
+
+    .content {
+        order: 1;
+    }
+
+    .menu-btn {
+        display: none;
+    }
+}
+
+/* Стили для кнопки меню (мобильные устройства) */
+.menu-btn {
+    display: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+        width: 100%;
+    }
+
+    nav {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease-in;
+    }
+
+    nav.open {
+        height: 300px; /* Высота меню, когда оно открыто */
+    }
+}

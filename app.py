@@ -1,6 +1,14 @@
 from flask import Flask, render_template
 import os
 import markdown
+from werkzeug.utils import secure_filename
+import re
+
+def safe_filename(filename):
+    # Удалить небезопасные символы, но сохранить пробелы
+    return re.sub(r'[^\w\s.-]', '', filename)
+
+app = Flask(__name__)
 
 def preprocess_markdown(markdown_content):
     # Replace '[x]' and '[ ]' with corresponding HTML elements for the task list
@@ -15,10 +23,7 @@ def markdown_to_html(markdown_content):
     html_content = markdown.markdown(markdown_content, extensions=['extra', 'nl2br', 'sane_lists'])
     return html_content
 
-app = Flask(__name__)
-
-@app.route('/')
-def index():
+def get_groups():
     groups = {}
     for group_name in os.listdir('posts'):
         group_path = os.path.join('posts', group_name)
@@ -32,15 +37,33 @@ def index():
                         lines = content.split('\n')
                         title = lines[0].replace('# ', '')
                         groups[group_name].append({'title': title, 'filename': filename})
+    return groups
+
+@app.route('/')
+def index():
+    groups = get_groups()
     return render_template('index.html', groups=groups)
 
 @app.route('/posts/<group>/<filename>')
 def post(group, filename):
+    # Получение данных о группах и постах для меню
+    groups = get_groups()
+
+    # Загрузка и обработка выбранного поста
+    group = safe_filename(group)  # Protect against path traversal attacks
+    filename = safe_filename(filename)
     path = os.path.join('posts', group, filename)
+    print(filename)
+    if not os.path.exists(path):
+        return f"File {filename} not found in group {group}.", 404
+
+    # Если файл существует, продолжаем как обычно
     with open(path, 'r') as file:
         content = file.read()
         html_content = markdown_to_html(content)
-    return render_template('post.html', content=html_content)
+
+    return render_template('post.html', content=html_content, groups=groups)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
